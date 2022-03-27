@@ -1,0 +1,23 @@
+.con {
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.name {
+}
+
+.day {
+  width: 2rem;
+  aspect-ratio: 1;
+  border: 1px solid #333;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 1s;
+}
+
+.day_active {
+  background-color: #333;
+}
