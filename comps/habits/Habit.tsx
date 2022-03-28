@@ -17,34 +17,30 @@ const daysInWeek = Array.from({ length: 7 }, (_, i) =>
   add(firstDateInWeek, { days: i })
 );
 
-const DATA = {
-  name: "meditate",
-  dates: [new Date("2022-03-21"), new Date("2022-03-24")],
-};
+interface HabitProps {
+  name: string;
+  dates: Date[];
+  toggleActive: (day: Date) => void;
+}
 
-export default function Habit() {
-  const [dates, setDates] = useState(DATA.dates);
+export default function Habit({ name, dates, toggleActive }: HabitProps) {
+  // const [dates, setDates] = useState(dates_);
 
-  const [animateToggle, setAnimateToggle] = useState(false);
+  // function toggleActive(day: Date) {
+  //   const isInList_ = isInList(day, dates);
 
-  useEffect(() => setAnimateToggle(!animateToggle), [dates]);
-
-  function toggleActive(day: Date) {
-    const isInList_ = isInList(day, dates);
-    console.log("isInList_", isInList_);
-
-    if (isInList_) {
-      setDates((currentDates) =>
-        currentDates.filter((date) => !isEqual(day, date))
-      );
-    } else {
-      setDates((currentDates) => [...currentDates, day]);
-    }
-  }
+  //   if (isInList_) {
+  //     setDates((currentDates) =>
+  //       currentDates.filter((date) => !isEqual(day, date))
+  //     );
+  //   } else {
+  //     setDates((currentDates) => [...currentDates, day]);
+  //   }
+  // }
 
   return (
     <article className={styles.con}>
-      <h2 className={styles.name}>meditate</h2>
+      <h2 className={styles.name}>{name}</h2>
 
       {daysInWeek.map((day) => {
         let isActiveDay = isInList(day, dates);
