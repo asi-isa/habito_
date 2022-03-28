@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import isEqual from "../../utils/date/isEqual";
 import isInList from "../../utils/date/isInList";
 import Habit from "./Habit";
+import HabitHeader from "./HabitHeader";
 
 import styles from "./Habits.module.css";
 
@@ -32,16 +33,20 @@ export default function Habits() {
   }
 
   return (
-    <section className={styles.con}>
-      {data.map((habit) => {
-        return (
-          <Habit
-            {...habit}
-            toggleActive={setDates(habit.name)}
-            key={habit.name}
-          />
-        );
-      })}
-    </section>
+    <div className={styles.con}>
+      <HabitHeader />
+
+      <section className={styles.habits}>
+        {data.map((habit) => {
+          return (
+            <Habit
+              {...habit}
+              toggleActive={setDates(habit.name)}
+              key={habit.name}
+            />
+          );
+        })}
+      </section>
+    </div>
   );
 }

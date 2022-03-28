@@ -1,0 +1,27 @@
+.con {
+  display: flex;
+  padding-top: 1rem;
+}
+
+.text {
+  text-align: center;
+}
+
+.cal_con {
+  width: 80%;
+  margin-left: auto;
+  /* border: 1px solid red; */
+}
+
+.dates_con,
+.weekday_con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date,
+.weekday {
+  flex: 1;
+  text-align: center;
+}

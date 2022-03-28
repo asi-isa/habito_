@@ -1,4 +1,3 @@
-import Habit from "../comps/habits/Habit";
 import Habits from "../comps/habits/Habits";
 import styles from "../styles/Home.module.css";
 
