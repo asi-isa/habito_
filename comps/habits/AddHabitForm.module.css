@@ -1,8 +1,51 @@
 .con {
-  background-color: rgba(51, 51, 51, 0.2);
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0.42rem;
+}
+
+.inner_con {
+  background-color: #eee;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  border-radius: 0.33rem;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.42rem;
 }
 
 .input {
   background-color: transparent;
   border: none;
+  font-size: 1.2rem;
+}
+
+.close {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cta {
+  border: none;
+  background: none;
+
+  background-color: #333;
+  color: #eee;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  border-radius: 0.33rem;
+  width: 15%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cta:active,
+.cta:hover,
+.cta:focus {
+  transform: scale(0.98);
 }

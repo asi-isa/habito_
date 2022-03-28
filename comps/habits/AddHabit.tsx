@@ -40,7 +40,7 @@ export default function AddHabit({
     >
       <motion.div
         animate={{
-          width: clicked ? "40%" : "100%",
+          width: clicked ? "50%" : "100%",
           borderRadius: clicked ? "3rem" : ".33rem",
         }}
         transition={{ duration: ANIM_DUR }}
@@ -50,7 +50,7 @@ export default function AddHabit({
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
           >
             <IoAdd size={33} />
           </motion.div>
