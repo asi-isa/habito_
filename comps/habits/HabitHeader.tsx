@@ -3,6 +3,7 @@ import { add, sub } from "date-fns";
 
 import styles from "./HabitHeader.module.css";
 import getWeekday from "../../utils/date/getWeekday";
+import AddHabit from "./AddHabit";
 
 const today = new Date();
 // So: 0
@@ -19,11 +20,15 @@ const datesInWeek = Array.from({ length: 7 }, (_, i) =>
 export default function HabitHeader() {
   return (
     <div className={styles.con}>
+      <AddHabit />
       <div className={styles.cal_con}>
-        {/* <p className={styles.text}>be the designer of your world.</p> */}
         <div className={styles.dates_con}>
           {datesInWeek.map((date) => {
-            return <p className={styles.date}>{date.getDate()}'</p>;
+            return (
+              <p className={styles.date} key={date.toISOString()}>
+                {date.getDate()}'
+              </p>
+            );
           })}
         </div>
         {/* <div className={styles.weekday_con}>
