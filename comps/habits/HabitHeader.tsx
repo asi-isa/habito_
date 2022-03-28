@@ -2,7 +2,6 @@ import React from "react";
 import { add, sub } from "date-fns";
 
 import styles from "./HabitHeader.module.css";
-import getWeekday from "../../utils/date/getWeekday";
 import AddHabit from "./AddHabit";
 
 const today = new Date();
@@ -21,21 +20,14 @@ export default function HabitHeader() {
   return (
     <div className={styles.con}>
       <AddHabit />
-      <div className={styles.cal_con}>
-        <div className={styles.dates_con}>
-          {datesInWeek.map((date) => {
-            return (
-              <p className={styles.date} key={date.toISOString()}>
-                {date.getDate()}'
-              </p>
-            );
-          })}
-        </div>
-        {/* <div className={styles.weekday_con}>
-          {datesInWeek.map((date) => {
-            return <p className={styles.weekday}>{getWeekday(date)}'</p>;
-          })}
-        </div> */}
+      <div className={styles.dates_con}>
+        {datesInWeek.map((date) => {
+          return (
+            <p className={styles.date} key={date.toISOString()}>
+              {date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}'
+            </p>
+          );
+        })}
       </div>
     </div>
   );

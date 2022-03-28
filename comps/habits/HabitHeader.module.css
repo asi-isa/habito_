@@ -1,28 +1,17 @@
 .con {
   display: flex;
-  margin-top: 1rem;
+  margin: 1rem 0;
   /* border: 1px solid red; */
 }
 
-.text {
-  text-align: center;
-}
-
-.cal_con {
+.dates_con {
   width: 80%;
-  margin-left: auto;
-  /* border: 1px solid red; */
-}
-
-.dates_con,
-.weekday_con {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.date,
-.weekday {
+.date {
   flex: 1;
   text-align: center;
 }
