@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { add, sub } from "date-fns";
 
 import styles from "./HabitHeader.module.css";
@@ -16,10 +16,21 @@ const datesInWeek = Array.from({ length: 7 }, (_, i) =>
   add(firstDateInWeek, { days: i })
 );
 
-export default function HabitHeader() {
+interface HabitHeaderProps {
+  setShowAddHabitForm: Dispatch<SetStateAction<boolean>>;
+  showAddHabitForm: boolean;
+}
+
+export default function HabitHeader({
+  setShowAddHabitForm,
+  showAddHabitForm,
+}: HabitHeaderProps) {
   return (
     <div className={styles.con}>
-      <AddHabit />
+      <AddHabit
+        setShowAddHabitForm={setShowAddHabitForm}
+        showAddHabitForm={showAddHabitForm}
+      />
       <div className={styles.dates_con}>
         {datesInWeek.map((date) => {
           return (

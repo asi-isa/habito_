@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import isEqual from "../../utils/date/isEqual";
 import isInList from "../../utils/date/isInList";
+import AddHabitForm from "./AddHabitForm";
 import Habit from "./Habit";
 import HabitHeader from "./HabitHeader";
 
@@ -13,6 +14,8 @@ const DATA = [
 
 export default function Habits() {
   const [data, setData] = useState(DATA);
+
+  const [showAddHabitForm, setShowAddHabitForm] = useState(false);
 
   function setDates(name: string) {
     return (day: Date) => {
@@ -34,7 +37,10 @@ export default function Habits() {
 
   return (
     <div className={styles.con}>
-      <HabitHeader />
+      <HabitHeader
+        setShowAddHabitForm={setShowAddHabitForm}
+        showAddHabitForm={showAddHabitForm}
+      />
 
       <section className={styles.habits}>
         {data.map((habit) => {
@@ -47,6 +53,13 @@ export default function Habits() {
           );
         })}
       </section>
+
+      {showAddHabitForm && (
+        <AddHabitForm
+          setShowAddHabitForm={setShowAddHabitForm}
+          showAddHabitForm={showAddHabitForm}
+        />
+      )}
     </div>
   );
 }
