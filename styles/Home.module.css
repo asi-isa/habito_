@@ -16,6 +16,10 @@
   backdrop-filter: blur(1rem);
 }
 
+.habits_con {
+  width: 42%;
+}
+
 /* patterns */
 
 .pattern_1,

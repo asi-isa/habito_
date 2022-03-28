@@ -6,8 +6,8 @@ import Habit from "./Habit";
 import styles from "./Habits.module.css";
 
 const DATA = [
-  { name: "meditate", dates: [new Date("2022-03-22"), new Date("2022-03-24")] },
-  { name: "read", dates: [new Date("2022-03-22"), new Date("2022-03-25")] },
+  { name: "meditate", dates: [new Date("2022-03-28"), new Date("2022-03-30")] },
+  { name: "read", dates: [new Date("2022-04-01"), new Date("2022-04-02")] },
 ];
 
 export default function Habits() {

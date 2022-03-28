@@ -10,7 +10,9 @@ export default function Home() {
       <div className={styles.pattern_3} />
 
       <div className={styles.inner_con}>
-        <Habits />
+        <div className={styles.habits_con}>
+          <Habits />
+        </div>
       </div>
     </section>
   );
