@@ -7,24 +7,21 @@ import { IoClose } from "react-icons/io5";
 interface AddHabitFormProps {
   setShowAddHabitForm: Dispatch<SetStateAction<boolean>>;
   showAddHabitForm: boolean;
+  addHabit: (name: string) => void;
 }
 
 export default function AddHabitForm({
   setShowAddHabitForm,
   showAddHabitForm,
+  addHabit,
 }: AddHabitFormProps) {
   const [value, setValue] = useState("");
-  const [showAddBTN, setShowAddBTN] = useState(false);
 
   return (
-    <motion.form
+    <motion.div
       layoutId="form"
       transition={{ type: "spring", damping: 15 }}
       className={styles.con}
-      onSubmit={(e) => {
-        e.preventDefault();
-        // console.log(Array.from(e.currentTarget.elements)[0]);
-      }}
     >
       <div className={styles.inner_con}>
         <input
@@ -46,18 +43,21 @@ export default function AddHabitForm({
 
       <AnimatePresence>
         {value.trim() !== "" && (
-          <motion.input
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
-            type="submit"
-            value="Add"
             className={styles.cta}
-            onClick={() => {}}
-          />
+            onClick={() => {
+              addHabit(value);
+              setValue("");
+            }}
+          >
+            Add
+          </motion.div>
         )}
       </AnimatePresence>
-    </motion.form>
+    </motion.div>
   );
 }

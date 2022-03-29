@@ -29,9 +29,9 @@
 }
 
 .cta {
-  border: none;
-  background: none;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #333;
   color: #eee;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

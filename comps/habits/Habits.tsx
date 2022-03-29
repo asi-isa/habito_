@@ -17,6 +17,10 @@ export default function Habits() {
 
   const [showAddHabitForm, setShowAddHabitForm] = useState(false);
 
+  function addHabit(name: string) {
+    setData((cV) => [...cV, { name, dates: [] }]);
+  }
+
   function setDates(name: string) {
     return (day: Date) => {
       const data_ = [...data];
@@ -58,6 +62,7 @@ export default function Habits() {
         <AddHabitForm
           setShowAddHabitForm={setShowAddHabitForm}
           showAddHabitForm={showAddHabitForm}
+          addHabit={addHabit}
         />
       )}
     </div>
