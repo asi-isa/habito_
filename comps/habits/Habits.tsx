@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import isEqual from "../../utils/date/isEqual";
-import isInList from "../../utils/date/isInList";
-import AddHabitForm from "./AddHabitForm";
-import Habit from "./Habit";
-import HabitHeader from "./HabitHeader";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import styles from "./Habits.module.css";
+import HabitHeader from "./HabitHeader";
+import AddHabitForm from "./AddHabitForm";
+import Habit from "./Habit";
+import isInList from "../../utils/date/isInList";
+import isEqual from "../../utils/date/isEqual";
+import { motion } from "framer-motion";
 
 const DATA = [
   { name: "meditate", dates: [new Date("2022-03-28"), new Date("2022-03-30")] },
@@ -19,6 +21,16 @@ export default function Habits() {
 
   function addHabit(name: string) {
     setData((cV) => [...cV, { name, dates: [] }]);
+  }
+
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+
+    const items = [...data];
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setData(items);
   }
 
   function setDates(name: string) {
@@ -46,17 +58,42 @@ export default function Habits() {
         showAddHabitForm={showAddHabitForm}
       />
 
-      <section className={styles.habits}>
-        {data.map((habit) => {
-          return (
-            <Habit
-              {...habit}
-              toggleActive={setDates(habit.name)}
-              key={habit.name}
-            />
-          );
-        })}
-      </section>
+      <DragDropContext
+        onDragEnd={handleOnDragEnd}
+        onDragStart={() => setShowAddHabitForm(false)}
+      >
+        <Droppable droppableId="characters">
+          {(provided) => (
+            <ul
+              className={styles.habits}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {data.map((habit, index) => {
+                return (
+                  <Draggable
+                    key={`${habit.name}-${index}`}
+                    draggableId={`${habit.name}-${index}`}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <li
+                        key={habit.name}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Habit {...habit} toggleActive={setDates(habit.name)} />
+                      </li>
+                    )}
+                  </Draggable>
+                );
+              })}
+              {/* {provided.placeholder} */}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
 
       {showAddHabitForm && (
         <AddHabitForm

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { add, sub } from "date-fns";
 
 import styles from "./Habit.module.css";
-import isEqual from "../../utils/date/isEqual";
 import isInList from "../../utils/date/isInList";
 
 const today = new Date();
