@@ -4,22 +4,29 @@
   justify-content: space-between;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-  /* position: relative; */
-  border-right: 1px solid #333;
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #333;
+  position: relative;
 }
-/* .con::after {
+.con::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 10%;
+  bottom: 0;
+  height: 80%;
+  width: 1px;
+  background-color: #333;
+}
+.con::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -0.5rem;
+  bottom: 0;
   margin: auto;
-  width: 100%;
+  width: 98%;
   height: 1px;
   background-color: #333;
-} */
+}
 
 .name {
   margin-left: 0.42rem;
