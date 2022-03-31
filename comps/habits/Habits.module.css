@@ -1,10 +1,12 @@
-.habits {
-  padding-top: 1rem;
-  /* overflow-y: scroll;
-  -ms-overflow-style: none; 
-  scrollbar-width: none;  */
+.delete_con {
+  margin: 1rem;
 }
 
-/* .habits::-webkit-scrollbar {
-  display: none;
-} */
+.delete {
+  border: 1px solid #750550;
+  padding: 0.8rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.33rem;
+}

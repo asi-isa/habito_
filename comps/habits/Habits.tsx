@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "react-beautiful-dnd";
+import { BsTrash } from "react-icons/bs";
 
 import styles from "./Habits.module.css";
 import HabitHeader from "./HabitHeader";
@@ -7,7 +14,6 @@ import AddHabitForm from "./AddHabitForm";
 import Habit from "./Habit";
 import isInList from "../../utils/date/isInList";
 import isEqual from "../../utils/date/isEqual";
-import { motion } from "framer-motion";
 
 const DATA = [
   { name: "meditate", dates: [new Date("2022-03-28"), new Date("2022-03-30")] },
@@ -18,19 +24,31 @@ export default function Habits() {
   const [data, setData] = useState(DATA);
 
   const [showAddHabitForm, setShowAddHabitForm] = useState(false);
+  const [showRemoveHabitCon, setShowRemoveHabitCon] = useState(false);
 
   function addHabit(name: string) {
     setData((cV) => [...cV, { name, dates: [] }]);
   }
 
-  function handleOnDragEnd(result) {
+  function handleOnDragEnd(result: DropResult) {
+    // console.log(result);
+
     if (!result.destination) return;
 
     const items = [...data];
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+
+    // delete
+    if (result.destination.droppableId === "delete") {
+      items.splice(result.source.index, 1);
+    }
+    // reorder
+    else {
+      const [reorderedItem] = items.splice(result.source.index, 1);
+      items.splice(result.destination.index, 0, reorderedItem);
+    }
 
     setData(items);
+    setShowRemoveHabitCon(false);
   }
 
   function setDates(name: string) {
@@ -60,9 +78,12 @@ export default function Habits() {
 
       <DragDropContext
         onDragEnd={handleOnDragEnd}
-        onDragStart={() => setShowAddHabitForm(false)}
+        onDragStart={() => {
+          setShowAddHabitForm(false);
+          setShowRemoveHabitCon(true);
+        }}
       >
-        <Droppable droppableId="characters">
+        <Droppable droppableId="habits">
           {(provided) => (
             <ul
               className={styles.habits}
@@ -89,8 +110,33 @@ export default function Habits() {
                   </Draggable>
                 );
               })}
-              {/* {provided.placeholder} */}
+              {provided.placeholder}
             </ul>
+          )}
+        </Droppable>
+
+        <Droppable droppableId="delete">
+          {(provided) => (
+            <div
+              className={styles.delete_con}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              <AnimatePresence>
+                {showRemoveHabitCon && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.5 }}
+                    className={styles.delete}
+                  >
+                    <BsTrash color="#750550" size={21} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           )}
         </Droppable>
       </DragDropContext>

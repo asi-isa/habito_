@@ -31,6 +31,7 @@ export default function AddHabitForm({
           value={value}
           onChange={({ target }) => setValue(target.value.trim())}
           required
+          autoFocus
         />
 
         {showAddHabitForm && (
