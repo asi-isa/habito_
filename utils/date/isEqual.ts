@@ -5,12 +5,12 @@ export default function isEqual(firstDate: Date, secondDate: Date) {
     day: firstDateDay,
     month: firstDateMonth,
     year: firstDateYear,
-  } = extract(firstDate);
+  } = extract(new Date(firstDate));
   const {
     day: secondDateDay,
     month: secondDateMonth,
     year: secondDateYear,
-  } = extract(secondDate);
+  } = extract(new Date(secondDate));
 
   return (
     firstDateDay === secondDateDay &&

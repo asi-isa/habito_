@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   DragDropContext,
@@ -15,19 +15,30 @@ import Habit from "./Habit";
 import isInList from "../../utils/date/isInList";
 import isEqual from "../../utils/date/isEqual";
 
-const DATA = [
-  { name: "meditate", dates: [new Date("2022-03-28"), new Date("2022-03-30")] },
-  { name: "read", dates: [new Date("2022-04-01"), new Date("2022-04-02")] },
-];
+type HabitType = { name: string; dates: Date[] };
+
+const HABITS = "HABITS";
 
 export default function Habits() {
-  const [data, setData] = useState(DATA);
+  const [habits, setHabits] = useState<HabitType[]>([]);
+
+  useEffect(() => {
+    const habits_ = JSON.parse(window.localStorage.getItem(HABITS));
+
+    if (habits_) setHabits(habits_);
+  }, []);
+
+  useEffect(() => {
+    if (habits) {
+      window.localStorage.setItem(HABITS, JSON.stringify(habits));
+    }
+  }, [habits]);
 
   const [showAddHabitForm, setShowAddHabitForm] = useState(false);
   const [showRemoveHabitCon, setShowRemoveHabitCon] = useState(false);
 
   function addHabit(name: string) {
-    setData((cV) => [...cV, { name, dates: [] }]);
+    setHabits((cV) => [...cV, { name, dates: [] }]);
   }
 
   function handleOnDragEnd(result: DropResult) {
@@ -35,7 +46,7 @@ export default function Habits() {
 
     if (!result.destination) return;
 
-    const items = [...data];
+    const items = [...habits];
 
     // delete
     if (result.destination.droppableId === "delete") {
@@ -47,13 +58,13 @@ export default function Habits() {
       items.splice(result.destination.index, 0, reorderedItem);
     }
 
-    setData(items);
+    setHabits(items);
     setShowRemoveHabitCon(false);
   }
 
   function setDates(name: string) {
     return (day: Date) => {
-      const data_ = [...data];
+      const data_ = [...habits];
       const idx = data_.findIndex((data) => data.name === name);
       const habit = data_[idx];
 
@@ -65,7 +76,7 @@ export default function Habits() {
         habit.dates = [...habit.dates, day];
       }
 
-      setData(data_);
+      setHabits(data_);
     };
   }
 
@@ -90,26 +101,30 @@ export default function Habits() {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {data.map((habit, index) => {
-                return (
-                  <Draggable
-                    key={`${habit.name}-${index}`}
-                    draggableId={`${habit.name}-${index}`}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <li
-                        key={habit.name}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <Habit {...habit} toggleActive={setDates(habit.name)} />
-                      </li>
-                    )}
-                  </Draggable>
-                );
-              })}
+              {habits &&
+                habits.map((habit, index) => {
+                  return (
+                    <Draggable
+                      key={`${habit.name}-${index}`}
+                      draggableId={`${habit.name}-${index}`}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <li
+                          key={habit.name}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Habit
+                            {...habit}
+                            toggleActive={setDates(habit.name)}
+                          />
+                        </li>
+                      )}
+                    </Draggable>
+                  );
+                })}
               {provided.placeholder}
             </ul>
           )}
