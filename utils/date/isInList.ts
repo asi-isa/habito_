@@ -5,8 +5,6 @@ export default function isInList(
   dateList: Date[],
   predicate: (firstDate: Date, secondDate: Date) => boolean = isEqual
 ) {
-  if (!dateList) return false;
-
   for (const date_ of dateList) {
     if (predicate(date_, date)) return true;
   }

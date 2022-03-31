@@ -29,9 +29,7 @@ export default function Habits() {
   }, []);
 
   useEffect(() => {
-    if (habits) {
-      window.localStorage.setItem(HABITS, JSON.stringify(habits));
-    }
+    window.localStorage.setItem(HABITS, JSON.stringify(habits));
   }, [habits]);
 
   const [showAddHabitForm, setShowAddHabitForm] = useState(false);
@@ -99,30 +97,26 @@ export default function Habits() {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {habits &&
-                habits.map((habit, index) => {
-                  return (
-                    <Draggable
-                      key={`${habit.name}-${index}`}
-                      draggableId={`${habit.name}-${index}`}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <li
-                          key={habit.name}
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <Habit
-                            {...habit}
-                            toggleActive={setDates(habit.name)}
-                          />
-                        </li>
-                      )}
-                    </Draggable>
-                  );
-                })}
+              {habits.map((habit, index) => {
+                return (
+                  <Draggable
+                    key={`${habit.name}-${index}`}
+                    draggableId={`${habit.name}-${index}`}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <li
+                        key={habit.name}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Habit {...habit} toggleActive={setDates(habit.name)} />
+                      </li>
+                    )}
+                  </Draggable>
+                );
+              })}
               {provided.placeholder}
             </ul>
           )}
