@@ -42,8 +42,6 @@ export default function Habits() {
   }
 
   function handleOnDragEnd(result: DropResult) {
-    // console.log(result);
-
     if (!result.destination) return;
 
     const items = [...habits];
