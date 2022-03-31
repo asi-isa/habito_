@@ -17,7 +17,13 @@
 }
 
 .habits_con {
-  width: 42%;
+  padding: 0 0.21rem;
+}
+
+@media (min-width: 1000px) {
+  .habits_con {
+    width: 42%;
+  }
 }
 
 /* patterns */
