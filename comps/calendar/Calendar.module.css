@@ -1,38 +1,48 @@
 .con {
-  border: 1px solid red;
+  /* border: 1px solid #333; */
   flex: 2;
   text-align: center;
 }
 
 .cal_header {
-  border: 1px solid red;
+  border: 1px solid #333;
   display: flex;
   justify-content: space-between;
+  border-top-left-radius: 0.33rem;
+  border-top-right-radius: 0.33rem;
 }
 
 .cal_body {
-  border: 1px solid red;
+  border: 1px solid #333;
   display: flex;
   justify-content: space-between;
+  border-bottom-left-radius: 0.33rem;
+  border-bottom-right-radius: 0.33rem;
 }
 
 .time,
 .time_col {
   flex: 1;
-  border: 1px solid red;
+  /* border: 1px solid #333; */
 }
 
 .weekday,
 .weekday_col {
   flex: 2;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
 
 .time_item,
 .weekday_item {
   height: 5rem;
-  border: 1px solid blue;
+  border: 1px solid #333;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.time,
+.weekday,
+.time_item {
+  font-weight: 600;
 }

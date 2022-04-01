@@ -2,6 +2,14 @@ import React from "react";
 
 import styles from "./Calendar.module.css";
 
+const COLS = 7;
+const ROWS = 7;
+const DATA = Array.from({ length: COLS }, (_, i) =>
+  Array.from({ length: ROWS }, (_, j) => "")
+);
+
+DATA[0][0] = "first";
+
 export default function Calendar() {
   return (
     <section className={styles.con}>
@@ -27,11 +35,13 @@ export default function Calendar() {
           <div className={styles.time_item}>17:30 - 19:00</div>
         </div>
 
-        {Array.from({ length: 7 }).map((weekday) => {
+        {Array.from({ length: 7 }).map((weekday, i) => {
           return (
             <div className={styles.weekday_col}>
-              {Array.from({ length: 7 }).map((weekdayItem) => {
-                return <div className={styles.weekday_item}>some stat</div>;
+              {Array.from({ length: 7 }).map((weekdayItem, j) => {
+                console.log("i,j", i, j, DATA[i][j]);
+
+                return <div className={styles.weekday_item}>{DATA[i][j]}</div>;
               })}
             </div>
           );
