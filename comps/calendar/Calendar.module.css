@@ -1,4 +1,38 @@
 .con {
   border: 1px solid red;
   flex: 2;
+  text-align: center;
+}
+
+.cal_header {
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cal_body {
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+}
+
+.time,
+.time_col {
+  flex: 1;
+  border: 1px solid red;
+}
+
+.weekday,
+.weekday_col {
+  flex: 2;
+  border: 1px solid blue;
+}
+
+.time_item,
+.weekday_item {
+  height: 5rem;
+  border: 1px solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
