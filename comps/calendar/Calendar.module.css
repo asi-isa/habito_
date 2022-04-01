@@ -2,6 +2,7 @@
   /* border: 1px solid #333; */
   flex: 2;
   text-align: center;
+  position: relative;
 }
 
 .cal_header {
@@ -15,7 +16,6 @@
 .cal_body {
   border: 1px solid #333;
   display: flex;
-  justify-content: space-between;
   border-bottom-left-radius: 0.33rem;
   border-bottom-right-radius: 0.33rem;
 }
@@ -32,8 +32,7 @@
   /* border: 1px solid blue; */
 }
 
-.time_item,
-.weekday_item {
+.time_item {
   height: 5rem;
   border: 1px solid #333;
   display: flex;

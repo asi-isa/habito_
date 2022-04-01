@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 import styles from "./Calendar.module.css";
+import { IoAddCircle } from "react-icons/io5";
+import CalendarItem from "./CalendarItem";
 
 const COLS = 7;
 const ROWS = 7;
@@ -8,9 +11,9 @@ const DATA = Array.from({ length: COLS }, (_, i) =>
   Array.from({ length: ROWS }, (_, j) => "")
 );
 
-DATA[0][0] = "first";
-
 export default function Calendar() {
+  const [data, setData] = useState(DATA);
+
   return (
     <section className={styles.con}>
       <div className={styles.cal_header}>
@@ -37,11 +40,17 @@ export default function Calendar() {
 
         {Array.from({ length: 7 }).map((weekday, i) => {
           return (
-            <div className={styles.weekday_col}>
+            <div key={i} className={styles.weekday_col}>
               {Array.from({ length: 7 }).map((weekdayItem, j) => {
-                console.log("i,j", i, j, DATA[i][j]);
-
-                return <div className={styles.weekday_item}>{DATA[i][j]}</div>;
+                return (
+                  <CalendarItem
+                    key={`${i}-${j}`}
+                    i={i}
+                    j={j}
+                    data={data}
+                    setData={setData}
+                  />
+                );
               })}
             </div>
           );
