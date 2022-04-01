@@ -1,12 +1,26 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { CustomValueType, motion } from "framer-motion";
+import React, {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import { motion } from "framer-motion";
 import { IoAddCircle, IoClose } from "react-icons/io5";
 
 import styles from "./CalendarItem.module.css";
+import { EventType } from "./Calendar";
+
+const COLORS: { color: string; labelName: string }[] = [
+  { color: "#E2E3E5", labelName: "normal" },
+  { color: "#D1E7DD", labelName: "priority" },
+  { color: "#CFE2FF", labelName: "attention" },
+  { color: "#F8D7DA", labelName: "important" },
+];
 
 interface CalendarItemProps {
-  data: string[][];
-  setData: Dispatch<SetStateAction<string[][]>>;
+  data: EventType[][];
+  setData: Dispatch<SetStateAction<EventType[][]>>;
   i: number;
   j: number;
 }
@@ -21,31 +35,40 @@ export default function CalendarItem({
   setData,
 }: CalendarItemProps) {
   const [clicked, setClicked] = useState(false);
-  const [closed, setClosed] = useState(false);
+  const [showFormContent, setShowFormContent] = useState(false);
 
-  // console.log("clicked", clicked);
+  const [selectedIdx, setSelectedIdx] = useState(0);
 
-  // useEffect(() => {
-  //   if (!clicked) {
-  //     setClosed(true);
-  //   }
-  // }, [clicked]);
+  useEffect(() => {
+    if (clicked) {
+      // weil sonst die Animation springy wird
+      setTimeout(() => setShowFormContent(true), ANIM_DUR_MS - 210);
+    }
+  }, [clicked]);
 
-  function onClick(i: number, j: number) {
-    setClicked(true);
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-    console.log(i, j);
+    const title = (e.currentTarget.elements[0] as HTMLInputElement).value;
+
+    const label = COLORS[selectedIdx];
+
+    const data_ = [...DATA];
+
+    data_[i][j] = { title, label };
+
+    setData(data_);
   }
 
   return (
-    <div
-      className={styles.weekday_item}
-      // style={{
-      //   overflow: clicked ? "initial" : "hidden",
-      // }}
-    >
+    <div className={styles.weekday_item}>
       {DATA[i][j] ? (
-        DATA[i][j]
+        <div
+          className={styles.event}
+          style={{ backgroundColor: DATA[i][j].label.color }}
+        >
+          {DATA[i][j].title}
+        </div>
       ) : !clicked ? (
         <motion.div
           layoutId="addEvent"
@@ -53,7 +76,6 @@ export default function CalendarItem({
             opacity: 0,
             width: "100%",
             height: "100%",
-            // backgroundColor: "rgba(51, 51, 51,0.98)",
           }}
           whileHover={{
             opacity: 0.99,
@@ -63,10 +85,10 @@ export default function CalendarItem({
           transition={{
             duration: 0.5,
             backgroundColor: { duration: 0 },
-            position: { delay: ANIM_DUR + 0.1 },
+            position: { delay: 0.6 },
           }}
           className={styles.add_btn}
-          onClick={() => onClick(i, j)}
+          onClick={() => setClicked(true)}
         >
           <IoAddCircle size={42} color="#eee" />
         </motion.div>
@@ -75,23 +97,65 @@ export default function CalendarItem({
           layoutId="addEvent"
           animate={{
             opacity: 1,
-            backgroundColor: "rgba(238, 238, 238,1)",
+            backgroundColor: "rgba(51, 51, 51,0.99)",
             border: "1px solid #333",
-            borderRadius: ".5rem",
-            width: "15vw",
-            height: "15vw",
+            borderRadius: ".6rem",
+            width: "21rem",
+            height: "21rem",
+            // padding: ".33rem",
             position: "absolute",
             zIndex: 99,
           }}
+          className={styles.add_event_form}
         >
-          <IoClose
-            onClick={() => {
-              setClicked(false);
-              console.log("clicked");
-            }}
-            size={21}
-            style={{ zIndex: 999 }}
-          />
+          {clicked && showFormContent && (
+            <form onSubmit={onSubmit} className={styles.add_event_form_content}>
+              <IoClose
+                onClick={() => setClicked(false)}
+                size={21}
+                className={styles.close_form}
+              />
+
+              <input
+                type="text"
+                placeholder="event..."
+                autoFocus
+                className={styles.input}
+              />
+
+              <div className={styles.colors}>
+                {COLORS.map(({ color, labelName }, idx) => {
+                  return (
+                    <div
+                      key={color}
+                      className={styles.color_con}
+                      onClick={() => setSelectedIdx(idx)}
+                    >
+                      <div
+                        className={styles.color_inner}
+                        style={{
+                          backgroundColor: color,
+                        }}
+                      >
+                        {selectedIdx === idx && (
+                          <motion.div
+                            layoutId="outerCircle"
+                            className={styles.color_outer}
+                            style={{
+                              border: `2px solid ${color}`,
+                            }}
+                          />
+                        )}
+                        {labelName}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <button className={styles.submit}>Add</button>
+            </form>
+          )}
         </motion.div>
       )}
     </div>

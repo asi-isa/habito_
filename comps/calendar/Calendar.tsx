@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 
 import styles from "./Calendar.module.css";
-import { IoAddCircle } from "react-icons/io5";
 import CalendarItem from "./CalendarItem";
+
+export type EventType = {
+  title: string;
+  label: { color: string; labelName: string };
+};
 
 const COLS = 7;
 const ROWS = 7;
 const DATA = Array.from({ length: COLS }, (_, i) =>
-  Array.from({ length: ROWS }, (_, j) => "")
+  Array.from({ length: ROWS }, (_, j) => undefined)
 );
 
 export default function Calendar() {
-  const [data, setData] = useState(DATA);
+  const [data, setData] = useState<EventType[][]>(DATA);
+  console.log(data);
 
   return (
     <section className={styles.con}>

@@ -7,12 +7,105 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   position: relative;
+  padding: 0.5rem;
 }
 
-.add_btn {
-  /* width: 100%;
-  height: 100%; */
+.event {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 0.33rem;
+}
+
+.add_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add_event_form {
+  /* padding: 0.5rem; */
+  cursor: initial;
+}
+
+.add_event_form_content {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  padding: 0.33rem;
+  background-color: #fefefe;
+  height: 100%;
+  border-radius: 0.5rem;
+}
+
+.close_form {
+  z-index: 999;
+  align-self: flex-end;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.input {
+  border: none;
+  font-size: 1.1rem;
+}
+
+.colors {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.color_con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.color_outer {
+  width: 6.5rem;
+  height: 3rem;
+  border-radius: 0.33rem;
+  border: 2px solid green;
+  position: absolute;
+}
+.color_inner {
+  width: 6rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.33rem;
+  color: #333;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0.2rem;
+}
+
+.submit {
+  border: none;
+  border-radius: 0.33rem;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.2rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background-color: #333;
+  color: #eee;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.submit:hover,
+.submit:focus,
+.submit:active {
+  transform: scale(0.95);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 2px;
 }
