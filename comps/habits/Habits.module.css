@@ -1,3 +1,8 @@
+.con {
+  padding: 0 0.21rem;
+  flex: 1;
+}
+
 .delete_con {
   margin: 1rem;
 }

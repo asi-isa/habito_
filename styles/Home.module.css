@@ -12,18 +12,9 @@
   border: 2px solid #333;
   border-radius: 1rem;
   background-color: rgba(238, 238, 238, 0.1);
+  backdrop-filter: blur(0.1rem);
 
-  backdrop-filter: blur(1rem);
-}
-
-.habits_con {
-  padding: 0 0.21rem;
-}
-
-@media (min-width: 1000px) {
-  .habits_con {
-    width: 42%;
-  }
+  display: flex;
 }
 
 /* patterns */
